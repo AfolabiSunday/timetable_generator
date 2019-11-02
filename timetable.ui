@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>508</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>552</x>
+      <y>10</y>
+      <width>111</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TimeTable</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>10</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Select Class</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="comboBox_2">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>10</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>60</y>
+      <width>801</width>
+      <height>401</height>
+     </rect>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Tab 1</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Tab 2</string>
+     </attribute>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuStaffs">
+    <property name="title">
+     <string>Staffs</string>
+    </property>
+    <widget class="QMenu" name="menuUsers">
+     <property name="title">
+      <string>Users</string>
+     </property>
+     <addaction name="actionCreate_New_Users"/>
+     <addaction name="actionEdit_New_User"/>
+     <addaction name="actionDelete_User"/>
+    </widget>
+    <widget class="QMenu" name="menuTeachers">
+     <property name="title">
+      <string>Teachers</string>
+     </property>
+     <addaction name="actionAdde_New_Teacher"/>
+     <addaction name="actionEdit_Techer"/>
+     <addaction name="actionDelete_Teacher"/>
+    </widget>
+    <addaction name="menuUsers"/>
+    <addaction name="menuTeachers"/>
+   </widget>
+   <widget class="QMenu" name="menuStudents">
+    <property name="title">
+     <string>Students</string>
+    </property>
+    <addaction name="actionAdd_Student"/>
+    <addaction name="actionEdit_Student"/>
+    <addaction name="actionDelete_Student"/>
+   </widget>
+   <widget class="QMenu" name="menuClasses">
+    <property name="title">
+     <string>Classes</string>
+    </property>
+    <addaction name="actionAdd_Class"/>
+    <addaction name="separator"/>
+    <addaction name="actionEdit_Class_Details"/>
+    <addaction name="actionDelete_Class"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuSubjects">
+    <property name="title">
+     <string>Subjects</string>
+    </property>
+    <addaction name="actionAdd_Subject"/>
+    <addaction name="actionDelete_Subject"/>
+    <addaction name="actionEdit_Subject"/>
+   </widget>
+   <widget class="QMenu" name="menuAdmin">
+    <property name="title">
+     <string>Admin</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+   </widget>
+   <addaction name="menuStaffs"/>
+   <addaction name="menuStudents"/>
+   <addaction name="menuClasses"/>
+   <addaction name="menuSubjects"/>
+   <addaction name="menuAdmin"/>
+   <addaction name="menuSettings"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCreate_New_Users">
+   <property name="text">
+    <string>Create New Users</string>
+   </property>
+  </action>
+  <action name="actionEdit_New_User">
+   <property name="text">
+    <string>Edit  User</string>
+   </property>
+  </action>
+  <action name="actionDelete_User">
+   <property name="text">
+    <string>Delete User</string>
+   </property>
+  </action>
+  <action name="actionAdde_New_Teacher">
+   <property name="text">
+    <string>Adde New Teacher</string>
+   </property>
+  </action>
+  <action name="actionEdit_Techer">
+   <property name="text">
+    <string>Edit Teacher</string>
+   </property>
+  </action>
+  <action name="actionDelete_Teacher">
+   <property name="text">
+    <string>Delete Teacher</string>
+   </property>
+  </action>
+  <action name="actionAdd_Student">
+   <property name="text">
+    <string>Add Student</string>
+   </property>
+  </action>
+  <action name="actionEdit_Student">
+   <property name="text">
+    <string>Edit Student</string>
+   </property>
+  </action>
+  <action name="actionDelete_Student">
+   <property name="text">
+    <string>Delete Student</string>
+   </property>
+  </action>
+  <action name="actionAdd_Class">
+   <property name="text">
+    <string>Add Class</string>
+   </property>
+  </action>
+  <action name="actionEdit_Class_Details">
+   <property name="text">
+    <string>Edit Class Details</string>
+   </property>
+  </action>
+  <action name="actionDelete_Class">
+   <property name="text">
+    <string>Delete Class</string>
+   </property>
+  </action>
+  <action name="actionAdd_Subject">
+   <property name="text">
+    <string>Add Subject</string>
+   </property>
+  </action>
+  <action name="actionDelete_Subject">
+   <property name="text">
+    <string>Delete Subject</string>
+   </property>
+  </action>
+  <action name="actionEdit_Subject">
+   <property name="text">
+    <string>Edit Subject</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
