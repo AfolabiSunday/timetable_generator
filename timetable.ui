@@ -105,24 +105,6 @@
     <addaction name="menuUsers"/>
     <addaction name="menuTeachers"/>
    </widget>
-   <widget class="QMenu" name="menuStudents">
-    <property name="title">
-     <string>Students</string>
-    </property>
-    <addaction name="actionAdd_Student"/>
-    <addaction name="actionEdit_Student"/>
-    <addaction name="actionDelete_Student"/>
-   </widget>
-   <widget class="QMenu" name="menuClasses">
-    <property name="title">
-     <string>Classes</string>
-    </property>
-    <addaction name="actionAdd_Class"/>
-    <addaction name="separator"/>
-    <addaction name="actionEdit_Class_Details"/>
-    <addaction name="actionDelete_Class"/>
-    <addaction name="separator"/>
-   </widget>
    <widget class="QMenu" name="menuSubjects">
     <property name="title">
      <string>Subjects</string>
@@ -142,8 +124,6 @@
     </property>
    </widget>
    <addaction name="menuStaffs"/>
-   <addaction name="menuStudents"/>
-   <addaction name="menuClasses"/>
    <addaction name="menuSubjects"/>
    <addaction name="menuAdmin"/>
    <addaction name="menuSettings"/>
