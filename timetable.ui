@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>508</height>
+    <width>1313</width>
+    <height>662</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>552</x>
       <y>10</y>
-      <width>111</width>
-      <height>28</height>
+      <width>121</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -41,6 +41,36 @@
       <string>Select Class</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>JSS 1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JSS 2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JSS 3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>SSS 1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>SSS 2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>SSS 3</string>
+     </property>
+    </item>
    </widget>
    <widget class="QComboBox" name="comboBox_2">
     <property name="geometry">
@@ -56,20 +86,78 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>60</y>
-      <width>801</width>
-      <height>401</height>
+      <y>40</y>
+      <width>1321</width>
+      <height>571</height>
      </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
       <string>Tab 1</string>
      </attribute>
-    </widget>
-    <widget class="QWidget" name="tab_2">
-     <attribute name="title">
-      <string>Tab 2</string>
-     </attribute>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>-20</x>
+        <y>0</y>
+        <width>1341</width>
+        <height>551</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Weekdays</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>1st Period</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>2nd Period</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>3rd Period</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>4th Period</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>5th Period</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Break Time</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>6th Period</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>7th Period</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>8th Period</string>
+       </property>
+      </column>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -78,7 +166,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1313</width>
      <height>26</height>
     </rect>
    </property>
@@ -123,8 +211,15 @@
      <string>Settings</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuClass">
+    <property name="title">
+     <string>Class</string>
+    </property>
+    <addaction name="actionAdd_Class_2"/>
+   </widget>
    <addaction name="menuStaffs"/>
    <addaction name="menuSubjects"/>
+   <addaction name="menuClass"/>
    <addaction name="menuAdmin"/>
    <addaction name="menuSettings"/>
   </widget>
@@ -202,6 +297,11 @@
   <action name="actionEdit_Subject">
    <property name="text">
     <string>Edit Subject</string>
+   </property>
+  </action>
+  <action name="actionAdd_Class_2">
+   <property name="text">
+    <string>Add Class</string>
    </property>
   </action>
  </widget>

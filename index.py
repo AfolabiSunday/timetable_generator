@@ -19,6 +19,9 @@ class MainApp(QMainWindow, page):
         QMainWindow.__init__(self)
         self.setupUi(self)
         self.Handled_Button()
+        #self.tabWidget.tabBar().setVisible(False)
+        self.showgenerateTimetable()
+        self.pushButton.clicked.connect(self.searchClass)
 
     def Handled_Button(self):
         self.actionCreate_New_Users.triggered.connect(self.addUserClass)
@@ -28,6 +31,13 @@ class MainApp(QMainWindow, page):
         self.actionEdit_Techer.triggered.connect(self.editTeachers)
         self.actionDelete_Teacher.triggered.connect(self.editTeachers)
         self.actionAdd_Subject.triggered.connect(self.SubjectShow)
+        self.actionDelete_Subject.triggered.connect(self.showeditsubject)
+        self.actionEdit_Subject.triggered.connect(self.showeditsubject)
+        #self.actionAdd_Class_2.triggered.connect(self.showaddclass)
+
+    # def showaddclass(self):
+    #     self.window= AddClass()
+    #     self.window.show
 
     def addUserClass(self):
         self.window2 = UserReg()
@@ -47,6 +57,89 @@ class MainApp(QMainWindow, page):
     def SubjectShow(self):
         self.window = SubjectMain()
         self.window.show()
+    def showeditsubject(self):
+        self.window = EditDeleteSubject()
+        self.window.show()
+
+
+    
+######################################################
+###### TABLE WIDEGT ##############################
+
+    def showgenerateTimetable(self):
+        self.tableWidget.setRowCount(5)
+        self.tableWidget.setColumnCount(10)
+        self.db = pymysql.connect(
+            host='localhost',
+            user='root',
+            password='Sunlabi001.',
+            db='timetable',
+        )
+
+        self.cur=self.db.cursor()
+        self.cur.execute('SELECT classname FROM class' )
+        
+        self.cur.execute(' SELECT classname FROM class')
+        DBB =self.cur.fetchall()
+        
+        for i in DBB:
+            self.comboBox.addItem(str(i[0]))
+    
+        # self.tableWidget.setItem(0,0, QTableWidgetItem('colume'))
+        # self.tableWidget.setItem(0,1, QTableWidgetItem('row'))
+
+    def searchClass(self):
+        searchId = self.comboBox.currentText()
+        self.db = pymysql.connect(
+            host='localhost',
+            user='root',
+            password='Sunlabi001.',
+            db='timetable',
+        )
+
+        self.cur=self.db.cursor()
+
+        self.cur.execute('SELECT * FROM subject WHERE class_taken_subject=%s',  searchId)
+        DBB = self.cur.fetchall()
+        print(DBB)
+        print(DBB[0][1])
+        for i in DBB:
+            self.tableWidget.setRowCount(5)
+            self.tableWidget.setColumnCount(10)
+            self.tableWidget.setItem(0,0, QTableWidgetItem("MONDAY"))
+            self.tableWidget.setItem(1,0, QTableWidgetItem("TUESDAY"))
+            self.tableWidget.setItem(2,0, QTableWidgetItem("WEDNESDAY"))
+            self.tableWidget.setItem(3,0, QTableWidgetItem("THURSDAY"))
+            self.tableWidget.setItem(4,0, QTableWidgetItem("FRIDAY"))
+            if i[4] == "5th":
+                print('yes')
+
+            else:
+                print('no')
+            self.tableWidget.move(0,0)
+# self.tableWidget.setItem(0,1, QTableWidgetItem(DBB[0][4]))
+# self.tableWidget.setItem(1,1, QTableWidgetItem("Cell (2,2)"))
+# self.tableWidget.setItem(2,1, QTableWidgetItem("Cell (3,2)"))
+# self.tableWidget.setItem(3,1, QTableWidgetItem("Cell (4,2)"))
+
+# addclass ,_ =loadUiType('addClass.ui')
+# class AddClass(QWidget, addclass):
+#     def __init__(self):
+#         QWidget.__init__(self)
+#         self.setupUi(self)
+#         self.show()
+
+#     def createClass(self):
+#         self.db = pymysql.connect(
+#             host='localhost',
+#             user='root',
+#             password='Sunlabi001.',
+#             db='timetable',)
+
+#         self.cur = self.db.cursor()
+
+#         #self.cur.execute('INSERT INTO class WHERE classname=%s, classnumberofstudent=%s')
+
 
 
 ####################################################
@@ -100,8 +193,99 @@ class SubjectMain(QWidget, subjectclass):
         self.close()
 
 
+editsubject ,_ = loadUiType('editDeleteSubject.ui')
+
+class EditDeleteSubject(QWidget, editsubject):
+    def __init__(self):
+        QWidget.__init__(self)
+        self.setupUi(self)
+        self.pushButton_3.clicked.connect(self.searchSubject)
+        self.pushButton.clicked.connect(self.deletesubject)
+        self.pushButton_2.clicked.connect(self.editsubject)
+
+        self.db = pymysql.connect(
+            host='localhost',
+            user='root',
+            password='Sunlabi001.',
+            db='timetable',)
+        self.cur = self.db.cursor()
+
+        self.cur.execute(' SELECT subjectname FROM subject')
+        DBB =self.cur.fetchall()        
+        for i in DBB:
+            self.comboBox.addItem(str(i[0]))
+
+    
+
+    def searchSubject(self):
+        subjectSearch = self.comboBox.currentText()
+        self.db = pymysql.connect(
+            host='localhost',
+            user='root',
+            password='Sunlabi001.',
+            db='timetable',
+        )
+
+        self.cur=self.db.cursor()
+        self.cur.execute('SELECT * FROM subject WHERE subjectname = %s', subjectSearch )
+        DBB = self.cur.fetchall()
 
 
+        for dat in DBB:
+            self.comboBox_7.setCurrentText(dat[1])
+            self.comboBox_9.setCurrentText(dat[2])
+            self.comboBox_10.setCurrentText(dat[3])
+            self.comboBox_6.setCurrentText(dat[5])
+            self.comboBox_8.setCurrentText(dat[4])
+            
+
+
+    def deletesubject(self):
+        deletesub = self.comboBox_7.currentText() 
+        self.cur = self.db.cursor()
+        warning = QMessageBox.warning(self, 'Delete subject', 'Are you sure you want to delete this User?', QMessageBox.Yes | QMessageBox.No)
+        if warning == QMessageBox.Yes:
+            self.cur.execute('DELETE FROM subject WHERE subjectname = %s ', deletesub )
+            self.db.commit()
+            self.comboBox_7.setCurrentText(str(0))
+            self.comboBox_9.setCurrentText(str(0))
+            self.comboBox_10.setCurrentText(str(0))
+            self.comboBox_6.setCurrentText(str(0))
+            self.comboBox_8.setCurrentText(str(0))
+            self.close()
+
+    def editsubject(self):
+        saveId = self.comboBox.currentText()
+
+        subjectname = self.comboBox_7.currentText()
+        teachersname = self.comboBox_9.currentText()
+        classsubject = self.comboBox_10.currentText()
+        daysofweek = self.comboBox_6.currentText()
+        period = self.comboBox_8.currentText()
+
+        self.db = pymysql.connect(
+            host='localhost',
+            user='root',
+            password='Sunlabi001.',
+            db='timetable',)
+
+        self.cur = self.db.cursor()
+        warning = QMessageBox.warning(self, 'Edit subject', 'Are you sure you want to Edit this Subject?', QMessageBox.Yes | QMessageBox.No)
+        if warning == QMessageBox.Yes:
+            self.cur.execute('''
+                UPDATE subject SET subjectname=%s, teacher_taken_subject=%s, class_taken_subject=%s, period_of_subject=%s, days_for_subject=%s WHERE subjectname=%s ''',
+                (subjectname, teachersname, classsubject, period, daysofweek, saveId))
+            self.db.commit()
+            self.db.close()
+            
+            self.comboBox_7.setCurrentText(str(0))
+            self.comboBox_9.setCurrentText(str(0))
+            self.comboBox_10.setCurrentText(str(0))
+            self.comboBox_6.setCurrentText(str(0))
+            self.comboBox_8.setCurrentText(str(0))
+            self.close()
+        else:
+            pass
 
 
 
@@ -241,11 +425,6 @@ class EditTeachersMain(QWidget, editTeachersUi):
 
 
     
-
-            
-
-
-
 
 ########################################################
 ### User Createtion Class
@@ -394,16 +573,6 @@ class EditUsers(QWidget, edituses):
 
         else:
             self.label_7.setText('Please Check details')
-
-
-
-
-
-
-
-
-
-
 
 
 
