@@ -6,12 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1313</width>
+    <width>1244</width>
     <height>662</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgb(26, 52, 62);
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="pushButton">
@@ -22,6 +27,9 @@
       <width>121</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(252, 252, 252);</string>
     </property>
     <property name="text">
      <string>TimeTable</string>
@@ -35,6 +43,9 @@
       <width>191</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(252, 252, 252);</string>
     </property>
     <item>
      <property name="text">
@@ -81,6 +92,39 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(252, 252, 252);</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Select Day</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Monday</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Tuesday</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Wednesday</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Thursday</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Friday</string>
+     </property>
+    </item>
    </widget>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
@@ -88,7 +132,7 @@
       <x>0</x>
       <y>40</y>
       <width>1321</width>
-      <height>571</height>
+      <height>581</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -101,64 +145,80 @@
      <widget class="QTableWidget" name="tableWidget">
       <property name="geometry">
        <rect>
-        <x>-20</x>
+        <x>-30</x>
         <y>0</y>
         <width>1341</width>
         <height>551</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <column>
+       <property name="text">
+        <string>Subject</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Teacher</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Class</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Period</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </column>
       <column>
        <property name="text">
         <string>Weekdays</string>
        </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>1st Period</string>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>2nd Period</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>3rd Period</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>4th Period</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>5th Period</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Break Time</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>6th Period</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>7th Period</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>8th Period</string>
+       <property name="background">
+        <color>
+         <red>252</red>
+         <green>252</green>
+         <blue>252</blue>
+        </color>
        </property>
       </column>
      </widget>
     </widget>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>724</x>
+      <y>10</y>
+      <width>261</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 12pt &quot;Verdana&quot;;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -166,8 +226,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1313</width>
-     <height>26</height>
+     <width>1244</width>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuStaffs">
@@ -210,6 +270,7 @@
     <property name="title">
      <string>Settings</string>
     </property>
+    <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuClass">
     <property name="title">
@@ -302,6 +363,11 @@
   <action name="actionAdd_Class_2">
    <property name="text">
     <string>Add Class</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
    </property>
   </action>
  </widget>

@@ -13,13 +13,47 @@ from PyQt5.uic import loadUiType
 
 page ,_ = loadUiType('timetable.ui')
 createuser ,_ = loadUiType('registerUser.ui')
+loginMain ,_ = loadUiType('login.ui')
+
+class LogMeIn(QWidget, loginMain):
+    def __init__(self):
+        QWidget.__init__(self)
+        self.setupUi(self)
+        self.pushButton.clicked.connect(self.LoginFunc)
+
+    def LoginFunc(self):
+        self.db = pymysql.connect(
+            host='localhost',
+            user='root',
+            password='Sunlabi001.',
+            db='timetable',
+        )
+
+        self.cur=self.db.cursor()
+
+        usernme = self.lineEdit.text()
+        password = self.lineEdit_2.text()
+
+        sql = ''' SELECT * FROM users '''
+        self.cur.execute(sql)
+        dbb = self.cur.fetchall()
+        for i in dbb:
+            if usernme == i[1] and password == i[4]:
+                self.window = MainApp()
+                self.window.show()
+                self.close()
+
+        
+
+
+
 
 class MainApp(QMainWindow, page):
     def __init__(self):
         QMainWindow.__init__(self)
         self.setupUi(self)
         self.Handled_Button()
-        #self.tabWidget.tabBar().setVisible(False)
+        self.tabWidget.tabBar().setVisible(False)
         self.showgenerateTimetable()
         self.pushButton.clicked.connect(self.searchClass)
 
@@ -33,11 +67,11 @@ class MainApp(QMainWindow, page):
         self.actionAdd_Subject.triggered.connect(self.SubjectShow)
         self.actionDelete_Subject.triggered.connect(self.showeditsubject)
         self.actionEdit_Subject.triggered.connect(self.showeditsubject)
-        #self.actionAdd_Class_2.triggered.connect(self.showaddclass)
+        self.actionQuit.triggered.connect(self.quitApp)
 
-    # def showaddclass(self):
-    #     self.window= AddClass()
-    #     self.window.show
+    def quitApp(self):
+        sys.exit()
+    
 
     def addUserClass(self):
         self.window2 = UserReg()
@@ -67,8 +101,8 @@ class MainApp(QMainWindow, page):
 ###### TABLE WIDEGT ##############################
 
     def showgenerateTimetable(self):
-        self.tableWidget.setRowCount(5)
-        self.tableWidget.setColumnCount(10)
+        self.tableWidget.setRowCount(10)
+        self.tableWidget.setColumnCount(5)
         self.db = pymysql.connect(
             host='localhost',
             user='root',
@@ -76,20 +110,17 @@ class MainApp(QMainWindow, page):
             db='timetable',
         )
 
-        self.cur=self.db.cursor()
-        self.cur.execute('SELECT classname FROM class' )
-        
+        self.cur=self.db.cursor()        
         self.cur.execute(' SELECT classname FROM class')
         DBB =self.cur.fetchall()
-        
+                
         for i in DBB:
             self.comboBox.addItem(str(i[0]))
-    
-        # self.tableWidget.setItem(0,0, QTableWidgetItem('colume'))
-        # self.tableWidget.setItem(0,1, QTableWidgetItem('row'))
+            self.comboBox_2.addItem(str(i[5]))
 
     def searchClass(self):
         searchId = self.comboBox.currentText()
+        searchday = self.comboBox_2.currentText()
         self.db = pymysql.connect(
             host='localhost',
             user='root',
@@ -99,53 +130,26 @@ class MainApp(QMainWindow, page):
 
         self.cur=self.db.cursor()
 
-        self.cur.execute('SELECT * FROM subject WHERE class_taken_subject=%s',  searchId)
+        
+        SQL = '''SELECT subjectname, teacher_taken_subject, class_taken_subject, period_of_subject, days_for_subject FROM subject WHERE class_taken_subject=%s AND days_for_subject=%s'''
+        self.cur.execute(SQL, [searchId,  searchday])
         DBB = self.cur.fetchall()
-        print(DBB)
-        print(DBB[0][1])
-        for i in DBB:
-            self.tableWidget.setRowCount(5)
-            self.tableWidget.setColumnCount(10)
-            self.tableWidget.setItem(0,0, QTableWidgetItem("MONDAY"))
-            self.tableWidget.setItem(1,0, QTableWidgetItem("TUESDAY"))
-            self.tableWidget.setItem(2,0, QTableWidgetItem("WEDNESDAY"))
-            self.tableWidget.setItem(3,0, QTableWidgetItem("THURSDAY"))
-            self.tableWidget.setItem(4,0, QTableWidgetItem("FRIDAY"))
-            if i[4] == "5th":
-                print('yes')
+        for row, form in enumerate(DBB):
+            for colum , item in enumerate(form):
+                self.tableWidget.setItem(row, colum, QTableWidgetItem(str(item)))
+                colum += 1
+                self.label.setText(searchId)
 
-            else:
-                print('no')
-            self.tableWidget.move(0,0)
-# self.tableWidget.setItem(0,1, QTableWidgetItem(DBB[0][4]))
-# self.tableWidget.setItem(1,1, QTableWidgetItem("Cell (2,2)"))
-# self.tableWidget.setItem(2,1, QTableWidgetItem("Cell (3,2)"))
-# self.tableWidget.setItem(3,1, QTableWidgetItem("Cell (4,2)"))
+            row_position = self.tableWidget.rowCount()
+            self.tableWidget.insertRow(row_position)
 
-# addclass ,_ =loadUiType('addClass.ui')
-# class AddClass(QWidget, addclass):
-#     def __init__(self):
-#         QWidget.__init__(self)
-#         self.setupUi(self)
-#         self.show()
-
-#     def createClass(self):
-#         self.db = pymysql.connect(
-#             host='localhost',
-#             user='root',
-#             password='Sunlabi001.',
-#             db='timetable',)
-
-#         self.cur = self.db.cursor()
-
-#         #self.cur.execute('INSERT INTO class WHERE classname=%s, classnumberofstudent=%s')
+        self.db.close()
 
 
 
 ####################################################
 ### Subject Class to Add Subject to class ##########
 ####################################################
-
 
 
 subjectclass ,_ =loadUiType('addSubject.ui')
@@ -214,8 +218,7 @@ class EditDeleteSubject(QWidget, editsubject):
         DBB =self.cur.fetchall()        
         for i in DBB:
             self.comboBox.addItem(str(i[0]))
-
-    
+ 
 
     def searchSubject(self):
         subjectSearch = self.comboBox.currentText()
@@ -230,15 +233,12 @@ class EditDeleteSubject(QWidget, editsubject):
         self.cur.execute('SELECT * FROM subject WHERE subjectname = %s', subjectSearch )
         DBB = self.cur.fetchall()
 
-
         for dat in DBB:
             self.comboBox_7.setCurrentText(dat[1])
             self.comboBox_9.setCurrentText(dat[2])
             self.comboBox_10.setCurrentText(dat[3])
             self.comboBox_6.setCurrentText(dat[5])
             self.comboBox_8.setCurrentText(dat[4])
-            
-
 
     def deletesubject(self):
         deletesub = self.comboBox_7.currentText() 
@@ -288,8 +288,6 @@ class EditDeleteSubject(QWidget, editsubject):
             pass
 
 
-
-
 #######################################################
 ########## Teachers Class #############################
 #######################################################
@@ -303,7 +301,6 @@ class AddNewTeacher(QWidget, addteacher):
         self.setupUi(self)
         self.pushButton.clicked.connect(self.registerTeacher)
 
-
     def registerTeacher(self):
         self.db = pymysql.connect(
             host='localhost',
@@ -314,16 +311,13 @@ class AddNewTeacher(QWidget, addteacher):
         Name = self.lineEdit.text()
         subject = self.lineEdit_2.text()
         address = self.lineEdit_3.text()
-        phone = self.lineEdit_4.text()
-
-        
+        phone = self.lineEdit_4.text() 
     
         self.cur = self.db.cursor()
         self.cur.execute('''INSERT INTO teachers (teachername, teacherphone, teachersubject, teachersaddress)
         VALUES (%s, %s, %s, %s)''', (Name, phone, subject, address))
         self.db.commit()
         self.close()
-
 
 editTeachersUi ,_ = loadUiType('editdelete_teachers.ui')
 
@@ -349,8 +343,7 @@ class EditTeachersMain(QWidget, editTeachersUi):
         
         for names in DBB:
             self.comboBox.addItem(names[0])
-            EditTeachersMain.close(self)
-        
+            EditTeachersMain.close(self)   
 
     def SaveTeachers(self):
         saveId = self.comboBox.currentText()
@@ -359,7 +352,6 @@ class EditTeachersMain(QWidget, editTeachersUi):
         subject = self.lineEdit_2.text()
         phone = self.lineEdit_3.text()
         address = self.lineEdit_4.text()
-
 
         self.db = pymysql.connect(
             host='localhost',
@@ -380,26 +372,26 @@ class EditTeachersMain(QWidget, editTeachersUi):
         self.lineEdit_3.setText(' ')
         self.close()
         
-
     def searchTeachers(self):
-        teachersearch = self.comboBox.currentText()
-        self.db = pymysql.connect(
-            host='localhost',
-            user='root',
-            password='Sunlabi001.',
-            db='timetable',
-        )
-        self.cur = self.db.cursor()
+        try:
+            teachersearch = self.comboBox.currentText()
+            self.db = pymysql.connect(
+                host='localhost',
+                user='root',
+                password='Sunlabi001.',
+                db='timetable',
+            )
+            self.cur = self.db.cursor()
 
-        self.cur.execute('SELECT * FROM teachers WHERE teachername=%s ', teachersearch)
-        DBB =self.cur.fetchone()
-        
-
-        self.lineEdit.setText(DBB[1])
-        self.lineEdit_2.setText(DBB[3])
-        self.lineEdit_3.setText(str(DBB[2]))
-        self.lineEdit_4.setText(DBB[4])
-
+            self.cur.execute('SELECT * FROM teachers WHERE teachername=%s ', teachersearch)
+            DBB =self.cur.fetchone()
+            
+            self.lineEdit.setText(DBB[1])
+            self.lineEdit_2.setText(DBB[3])
+            self.lineEdit_3.setText(str(DBB[2]))
+            self.lineEdit_4.setText(DBB[4])
+        except:
+            pass
 
     def removeteacher(self):
         self.TODELET = self.lineEdit.text()
@@ -409,22 +401,22 @@ class EditTeachersMain(QWidget, editTeachersUi):
             password='Sunlabi001.',
             db='timetable',
         )
-
-        self.cur = self.db.cursor()
-        warning = QMessageBox.warning(self, 'Delete Teacher', 'Are you sure you want to delete this User?', QMessageBox.Yes | QMessageBox.No)
-        if warning == QMessageBox.Yes:
-            self.cur.execute('DELETE FROM teachers WHERE teachername = %s ', self.TODELET )
-            self.db.commit()
-            self.lineEdit.setText(' ')
-            self.lineEdit_2.setText(' ')
-            self.lineEdit_4.setText(' ')
-            self.lineEdit_3.setText(' ')
-            self.comboBox.setCurrentText(str(0))
+        try:
+            self.cur = self.db.cursor()
+            warning = QMessageBox.warning(self, 'Delete Teacher', 'Are you sure you want to delete this User?', QMessageBox.Yes | QMessageBox.No)
+            if warning == QMessageBox.Yes:
+                self.cur.execute('DELETE FROM teachers WHERE teachername = %s ', self.TODELET )
+                self.db.commit()
+                self.lineEdit.setText(' ')
+                self.lineEdit_2.setText(' ')
+                self.lineEdit_4.setText(' ')
+                self.lineEdit_3.setText(' ')
+                self.comboBox.setCurrentText(str(0))
+        except:
+            pass
 
             ### keep crashing if search is NOne, need to fix this
-
-
-    
+   
 
 ########################################################
 ### User Createtion Class
@@ -581,7 +573,7 @@ class EditUsers(QWidget, edituses):
 
 def runall():
     app = QApplication(sys.argv)
-    window = MainApp()
+    window = LogMeIn()
     window.show()
     app.exec_()
 
