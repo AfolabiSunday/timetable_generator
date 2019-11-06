@@ -13,6 +13,11 @@
   <property name="windowTitle">
    <string>Login Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgb(255, 170, 0);
+</string>
+  </property>
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
@@ -24,9 +29,15 @@
    </property>
    <property name="font">
     <font>
-     <family>Segoe UI</family>
-     <pointsize>12</pointsize>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(252, 252, 252);</string>
    </property>
    <property name="placeholderText">
     <string>Enter UserName</string>
@@ -43,9 +54,15 @@
    </property>
    <property name="font">
     <font>
-     <family>Segoe UI</family>
-     <pointsize>12</pointsize>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(252, 252, 252);</string>
    </property>
    <property name="text">
     <string>Login</string>
@@ -62,10 +79,11 @@
    </property>
    <property name="font">
     <font>
-     <family>Segoe UI</family>
-     <pointsize>7</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="text">
@@ -83,9 +101,15 @@
    </property>
    <property name="font">
     <font>
-     <family>Segoe UI</family>
-     <pointsize>12</pointsize>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(252, 252, 252);</string>
    </property>
    <property name="echoMode">
     <enum>QLineEdit::Password</enum>

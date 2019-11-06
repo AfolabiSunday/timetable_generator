@@ -60,7 +60,7 @@ class MainApp(QMainWindow, page):
     def Handled_Button(self):
         self.actionCreate_New_Users.triggered.connect(self.addUserClass)
         self.actionEdit_New_User.triggered.connect(self.editUser)
-        self.actionDelete_User.triggered.connect(self.editUser)
+        self.actionDelete_User.triggered.connect(self.editUser)   #self.editUser
         self.actionAdde_New_Teacher.triggered.connect(self.addteacherclass)
         self.actionEdit_Techer.triggered.connect(self.editTeachers)
         self.actionDelete_Teacher.triggered.connect(self.editTeachers)
@@ -70,7 +70,11 @@ class MainApp(QMainWindow, page):
         self.actionQuit.triggered.connect(self.quitApp)
 
     def quitApp(self):
-        sys.exit()
+        warning = QMessageBox.warning(self, 'QUIT APP', 'Are you sure you want to Exit this app?', QMessageBox.Yes | QMessageBox.No)
+        if warning == QMessageBox.Yes:
+            sys.exit()
+        else:
+            pass
     
 
     def addUserClass(self):
@@ -312,15 +316,19 @@ class AddNewTeacher(QWidget, addteacher):
         subject = self.lineEdit_2.text()
         address = self.lineEdit_3.text()
         phone = self.lineEdit_4.text() 
-    
-        self.cur = self.db.cursor()
-        self.cur.execute('''INSERT INTO teachers (teachername, teacherphone, teachersubject, teachersaddress)
-        VALUES (%s, %s, %s, %s)''', (Name, phone, subject, address))
-        self.db.commit()
-        self.close()
+
+        try:
+            self.cur = self.db.cursor()
+            self.cur.execute('''INSERT INTO teachers (teachername, teacherphone, teachersubject, teachersaddress)
+            VALUES (%s, %s, %s, %s)''', (Name, phone, subject, address))
+            self.db.commit()
+            self.close()
+        except:
+            self.label_7.setText('Please Check All Field Again ')
+
+
 
 editTeachersUi ,_ = loadUiType('editdelete_teachers.ui')
-
 class EditTeachersMain(QWidget, editTeachersUi):
     def __init__(self):
         QWidget.__init__(self)
@@ -442,24 +450,23 @@ class UserReg(QWidget, createuser):
         password= self.lineEdit_3.text()
         password2 = self.lineEdit_5.text()
 
-        
-        if password == password2:
-            self.cur = self.db.cursor()
-            self.cur.execute('''INSERT INTO users (User_name, User_email, User_phone, User_password)
-             VALUES (%s, %s, %s, %s)''',
-            (username, email, phone, password))
-            self.db.commit()
-                        
-        else:
-            pass
-            # bug needs fixes QMessageBox.Warning(self, 'Not Recognized User', 'Please see the Chief Admin for more details')
-
+        try:
+            if password == password2:
+                self.cur = self.db.cursor()
+                self.cur.execute('''INSERT INTO users (User_name, User_email, User_phone, User_password)
+                VALUES (%s, %s, %s, %s)''',
+                (username, email, phone, password))
+                self.db.commit()
+                            
+            else:
+                pass
+        except:
+            self.label_7.setText('Please Check All Field Again')
 
 
 ################################################
 ####              Edit Users Class      ########
 ################################################
-
 
 edituses,_ = loadUiType('editdelete_users1.ui')
 from PyQt5.QtWidgets import QMessageBox
@@ -565,10 +572,6 @@ class EditUsers(QWidget, edituses):
 
         else:
             self.label_7.setText('Please Check details')
-
-
-
-
 
 
 def runall():

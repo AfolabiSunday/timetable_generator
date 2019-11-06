@@ -13,14 +13,22 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgb(255, 170, 0);
+</string>
+  </property>
   <widget class="QLineEdit" name="lineEdit_4">
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>220</y>
+     <y>170</y>
      <width>211</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="placeholderText">
     <string>Not more Than 11 Characters</string>
@@ -30,7 +38,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>120</y>
+     <y>70</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -46,10 +54,13 @@
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>320</y>
+     <y>270</y>
      <width>211</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="echoMode">
     <enum>QLineEdit::Password</enum>
@@ -62,7 +73,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>220</y>
+     <y>170</y>
      <width>121</width>
      <height>31</height>
     </rect>
@@ -78,10 +89,13 @@
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>170</y>
+     <y>120</y>
      <width>211</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(252, 252, 252);</string>
    </property>
    <property name="placeholderText">
     <string>Email Address Can be Empty</string>
@@ -91,10 +105,13 @@
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>120</y>
+     <y>70</y>
      <width>211</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(252, 252, 252);</string>
    </property>
    <property name="placeholderText">
     <string>Username for Login</string>
@@ -104,10 +121,13 @@
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>270</y>
+     <y>220</y>
      <width>211</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="echoMode">
     <enum>QLineEdit::Password</enum>
@@ -120,7 +140,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>170</y>
+     <y>120</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -136,7 +156,7 @@
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>30</y>
+     <y>0</y>
      <width>311</width>
      <height>41</height>
     </rect>
@@ -151,11 +171,14 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>180</x>
+     <x>170</x>
      <y>390</y>
      <width>161</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(252, 252, 252);</string>
    </property>
    <property name="text">
     <string>Register User</string>
@@ -165,7 +188,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>270</y>
+     <y>220</y>
      <width>121</width>
      <height>31</height>
     </rect>
@@ -181,7 +204,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>320</y>
+     <y>270</y>
      <width>141</width>
      <height>31</height>
     </rect>
@@ -191,6 +214,22 @@
    </property>
    <property name="text">
     <string>Confirm Password</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>330</y>
+     <width>301</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 10pt &quot;Verdana&quot;;</string>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>
