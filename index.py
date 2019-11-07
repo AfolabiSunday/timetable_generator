@@ -43,6 +43,9 @@ class LogMeIn(QWidget, loginMain):
                 self.window.show()
                 self.close()
 
+            else:
+                self.label.setText('Please Check Your Login Details')
+
         
 
 
@@ -142,7 +145,7 @@ class MainApp(QMainWindow, page):
             for colum , item in enumerate(form):
                 self.tableWidget.setItem(row, colum, QTableWidgetItem(str(item)))
                 colum += 1
-                self.label.setText(searchId)
+                self.label.setText('TimeTable For ' + searchId + ' Today ' + searchday)
 
             row_position = self.tableWidget.rowCount()
             self.tableWidget.insertRow(row_position)
